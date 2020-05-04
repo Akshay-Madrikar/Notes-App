@@ -5,14 +5,17 @@
 const validator = require('validator');
 const chalk = require('chalk');
 const yargs = require('yargs');
+const note = require('./notes');
+// const removeNote = require('./notes');
+// const Lis = require('./notes');
 //====================================/
 
-//=========== Validator module==================/
+//=========== Validator module ==================/
 // console.log(validator.isEmail('asdasdasd@g.com'));
 // console.log(validator.isURL('http://asd.com'));
 //=============================================/
 
-//=========== Chalk module==================/
+//=========== Chalk module ==================/
 // console.log(chalk.bold.green('Success!'));
 // console.log(chalk.bold.red('Error!'));
 //=========================================/
@@ -26,16 +29,16 @@ const yargs = require('yargs');
 yargs.command({
     command: 'add',
     description: 'Add a new note',
-    handler: () => {
-        console.log('Adding a new note!')
+    handler: (argv) => {
+        note.addNote(argv.title, argv.body);
     }
 });
 
 yargs.command({
     command: 'remove',
     description: 'Remove a new note',
-    handler: () => {
-        console.log('Removing note!')
+    handler: (argv) => {
+        note.removeNote(argv.title);
     }
 });
 
@@ -43,17 +46,17 @@ yargs.command({
     command: 'list',
     description: 'Listing all notes',
     handler: () => {
-        console.log('Listing out all notes!')
+        note.listNotes();
     }
 });
 
 yargs.command({
     command: 'read',
     description: 'Read note',
-    handler: () => {
-        console.log('Reading a note!')
+    handler: (argv) => {
+        note.readNote(argv.title)
     }
 });
 
-console.log(yargs.argv);
+yargs.parse();
 //===============================================/
